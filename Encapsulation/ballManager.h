@@ -2,6 +2,8 @@
 #include <SDL.h>
 //#include <stdio.h>
 #include <iostream>
+#include <vector>
+#include <iterator>
 
 #include "constants.h"
 
@@ -14,6 +16,9 @@ public:
 	int VelocityY;
 
 	int Radius = 5;
+	SDL_Rect ballRect{
+	}
+
 
 	Ball(int x, int y, int vx, int vy)
 	{
@@ -26,5 +31,5 @@ public:
 	int Display(SDL_Renderer* renderer);
 	int Movements();
 	int BorderCollisions();
-	int Collisions();
+	int Collisions(std::vector<Ball> ballArray);
 };

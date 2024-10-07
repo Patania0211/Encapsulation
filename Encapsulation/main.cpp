@@ -19,9 +19,9 @@ int randomise(int value) {
 	return v;
 }
 int main(int argc, char* argv[]) {
-	Ball balls[temporaryVariable] = { Ball(x, y,2,2), Ball(x,y,2,2),
-	Ball(x,y,2,2), Ball(x,y,2,2), Ball(x,y,2,2), Ball(x,y,2,2),
-		Ball(x,y,2,2), Ball(x,y,2,2), Ball(x,y,2,2), Ball(x,y,2,2), Ball(x,y,2,2), };
+	std::vector<Ball> balls = { Ball(x, y,2,2), Ball(x,y,2,2),Ball(x,y,2,2), 
+								Ball(x,y,2,2), Ball(x,y,2,2), Ball(x,y,2,2),
+								Ball(x,y,2,2), Ball(x,y,2,2), Ball(x,y,2,2), Ball(x,y,2,2), Ball(x,y,2,2), };
 
 
 	for (int i = 0; i < temporaryVariable; i++) {

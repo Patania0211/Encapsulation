@@ -45,7 +45,16 @@ int Ball::BorderCollisions() {
 	}
 	return 0;
 }
-int Ball::Collisions() {
-	SDL_bool SDL_HasIntersection();
+int Ball::Collisions(std::vector<Ball> ballArray) {
+	
+	auto arrayLength = std::distance(ballArray.begin(), ballArray.end());
+	for (int firstBall = 0; firstBall < arrayLength; firstBall++) {
+		for (int secondBall = 0; secondBall < arrayLength; secondBall++) {
+
+			SDL_bool SDL_IntersectRect(firstBall, secondBall);
+		}
+
+	}
+	
 	return 0;
 }
