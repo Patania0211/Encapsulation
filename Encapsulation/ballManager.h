@@ -1,6 +1,5 @@
 #pragma once
 #include <SDL.h>
-//#include <stdio.h>
 #include <iostream>
 #include <vector>
 #include <iterator>
@@ -16,9 +15,6 @@ public:
 	int VelocityY;
 
 	int Radius = 5;
-	SDL_Rect ballRect{
-	}
-
 
 	Ball(int x, int y, int vx, int vy)
 	{
@@ -32,4 +28,5 @@ public:
 	int Movements();
 	int BorderCollisions();
 	int Collisions(std::vector<Ball> ballArray);
+	int DrawCircle(SDL_Renderer* renderer);
 };

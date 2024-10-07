@@ -1,16 +1,47 @@
 #include "ballManager.h";
 
+int Ball::DrawCircle(SDL_Renderer* renderer) {
+	int x = Radius;
+	int y = 0;
 
+	int centerX = X;
+	int centerY = Y;
 
+	int decisionOver2 = 1 - x; // Midpoint circle algorithm decision variable
 
+	while (y <= x) {
+		// Draw the eight symmetrical points
+		SDL_RenderDrawPoint(renderer, centerX + x, centerY + y);
+		SDL_RenderDrawPoint(renderer, centerX + y, centerY + x);
+		SDL_RenderDrawPoint(renderer, centerX - x, centerY + y);
+		SDL_RenderDrawPoint(renderer, centerX - y, centerY + x);
+		SDL_RenderDrawPoint(renderer, centerX + x, centerY - y);
+		SDL_RenderDrawPoint(renderer, centerX + y, centerY - x);
+		SDL_RenderDrawPoint(renderer, centerX - x, centerY - y);
+		SDL_RenderDrawPoint(renderer, centerX - y, centerY - x);
+
+		y++;
+
+		// Update decision variable
+		if (decisionOver2 <= 0) {
+			decisionOver2 += 2 * y + 1; // Midpoint is inside the circle
+		}
+		else {
+			x--;
+			decisionOver2 += 2 * y - 2 * x + 1; // Midpoint is outside the circle
+		}
+	}
+
+	return 0;
+}
 int Ball::Display(SDL_Renderer* renderer) {
 
 
 	//SDL_Rect ballRect{ ball1.ballPosX += ball1.ballVelocity, ball1.ballPosY += ball1.ballVelocity, BALLSIZE,BALLSIZE };
 	
-	SDL_Rect ballRect{ X, Y, BALLSIZE,BALLSIZE };
+	//SDL_Rect ballRect{ X, Y, BALLSIZE,BALLSIZE };
 	SDL_SetRenderDrawColor(renderer, 255, 182, 193, 255);
-	SDL_RenderFillRect(renderer, &ballRect);
+	DrawCircle(renderer);
 	//SDL_RenderPresent(renderer);
 
 	return 0;
@@ -24,7 +55,7 @@ int Ball::Movements() {
 }
 int Ball::BorderCollisions() {
 
-	if (X >= WINDOW_WIDTH - BALLSIZE) {
+	if (X >= WINDOW_WIDTH /*- Radius*/) {
 		// Il faut modifier la composante 
 		VelocityX *= -1;
 		Y =  Y + VelocityY;
@@ -38,7 +69,7 @@ int Ball::BorderCollisions() {
 		VelocityY *= -1;
 		X = X + VelocityX;
 	}
-	if (Y >= WINDOW_HEIGHT - BALLSIZE) {
+	if (Y >= WINDOW_HEIGHT /*- Radius*/) {
 		VelocityY *= -1;
 		X = X + VelocityX;
 
@@ -48,13 +79,13 @@ int Ball::BorderCollisions() {
 int Ball::Collisions(std::vector<Ball> ballArray) {
 	
 	auto arrayLength = std::distance(ballArray.begin(), ballArray.end());
-	for (int firstBall = 0; firstBall < arrayLength; firstBall++) {
+	/*for (int firstBall = 0; firstBall < arrayLength; firstBall++) {
 		for (int secondBall = 0; secondBall < arrayLength; secondBall++) {
 
-			SDL_bool SDL_IntersectRect(firstBall, secondBall);
+			std::cout<< "I'm miss potato";
 		}
 
-	}
+	}*/
 	
 	return 0;
 }

@@ -19,12 +19,13 @@ int randomise(int value) {
 	return v;
 }
 int main(int argc, char* argv[]) {
-	std::vector<Ball> balls = { Ball(x, y,2,2), Ball(x,y,2,2),Ball(x,y,2,2), 
-								Ball(x,y,2,2), Ball(x,y,2,2), Ball(x,y,2,2),
-								Ball(x,y,2,2), Ball(x,y,2,2), Ball(x,y,2,2), Ball(x,y,2,2), Ball(x,y,2,2), };
+	std::vector<Ball> balls = { Ball(x, y,2,2), Ball(x,y,2,2),Ball(x,y,2,2)};
+	auto arrayLength = std::distance(balls.begin(), balls.end());
 
+	//Ball(x,y,2,2), Ball(x,y,2,2), Ball(x,y,2,2),
+	//Ball(x, y, 2, 2), Ball(x, y, 2, 2), Ball(x, y, 2, 2), Ball(x, y, 2, 2), Ball(x, y, 2, 2)
 
-	for (int i = 0; i < temporaryVariable; i++) {
+	for (int i = 0; i < arrayLength; i++) {
 
 		balls[i].X = randomise(WINDOW_WIDTH);
 		balls[i].Y = randomise(WINDOW_HEIGHT);
@@ -32,7 +33,7 @@ int main(int argc, char* argv[]) {
 		balls[i].VelocityY = randomise(10);
 
 	}
-	
+	//
 	if (createWindow(&window, &renderer)!= 0) {
 		return -1;
 	}
@@ -41,7 +42,7 @@ int main(int argc, char* argv[]) {
 		quit = closeWindow(window);
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 		SDL_RenderClear(renderer);
-		for (int i = 0; i < temporaryVariable; i++) {
+		for (int i = 0; i < arrayLength; i++) {
 
 			balls[i].Display(renderer);
 			balls[i].Movements();
