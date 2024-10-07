@@ -36,13 +36,8 @@ int Ball::DrawCircle(SDL_Renderer* renderer) {
 }
 int Ball::Display(SDL_Renderer* renderer) {
 
-
-	//SDL_Rect ballRect{ ball1.ballPosX += ball1.ballVelocity, ball1.ballPosY += ball1.ballVelocity, BALLSIZE,BALLSIZE };
-	
-	//SDL_Rect ballRect{ X, Y, BALLSIZE,BALLSIZE };
 	SDL_SetRenderDrawColor(renderer, 255, 182, 193, 255);
 	DrawCircle(renderer);
-	//SDL_RenderPresent(renderer);
 
 	return 0;
 }
@@ -76,16 +71,23 @@ int Ball::BorderCollisions() {
 	}
 	return 0;
 }
-int Ball::Collisions(std::vector<Ball> ballArray) {
-	
-	auto arrayLength = std::distance(ballArray.begin(), ballArray.end());
-	/*for (int firstBall = 0; firstBall < arrayLength; firstBall++) {
-		for (int secondBall = 0; secondBall < arrayLength; secondBall++) {
+bool Ball::Collisions(std::vector<Ball> ballArray, int arrayLength) {
+	for (int i = 0; i < arrayLength; i++) {
+		Ball currentBall = ballArray[i];
+		if (currentBall.X) {
+			return true;
 
-			std::cout<< "I'm miss potato";
 		}
 
-	}*/
-	
-	return 0;
+	}
+
+	//for (int i = 0; i < arrayLength; i++) {
+	//	Ball previousBall = ballArray[i+1];
+
+	//	if (ballArray[i].X == previousBall.X) {
+
+	//		std::cout << "Colision detected";
+	//		return true;
+	//	}
+	//}
 }

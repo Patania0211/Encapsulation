@@ -27,6 +27,7 @@ public:
 	int Display(SDL_Renderer* renderer);
 	int Movements();
 	int BorderCollisions();
-	int Collisions(std::vector<Ball> ballArray);
+	bool Collisions(std::vector<Ball> ballArray, int arrayLength);
 	int DrawCircle(SDL_Renderer* renderer);
+
 };

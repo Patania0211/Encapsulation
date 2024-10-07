@@ -47,7 +47,9 @@ int main(int argc, char* argv[]) {
 			balls[i].Display(renderer);
 			balls[i].Movements();
 			balls[i].BorderCollisions();
+			balls[i].Collisions(balls, arrayLength);
 		}
+
 		//moveBall();
 		SDL_RenderPresent(renderer);
 		SDL_Delay(10);
