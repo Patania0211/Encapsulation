@@ -72,10 +72,15 @@ int Ball::BorderCollisions() {
 	return 0;
 }
 bool Ball::Collisions(std::vector<Ball> ballArray, int arrayLength) {
-	for (int i = 0; i < arrayLength; i++) {
-		Ball currentBall = ballArray[i];
-		if (currentBall.X) {
-			return true;
+	for (int i = 0; i < arrayLength; i++) 
+	{
+		for (int k = i + 1; k < arrayLength; k++) 
+		{
+			if (ballArray[i].X == ballArray[k].X && ballArray[i].Y == ballArray[k].Y)
+			{
+				std::cout << "Collisons detected \n";
+				return true;
+			}
 
 		}
 

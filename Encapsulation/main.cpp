@@ -19,11 +19,11 @@ int randomise(int value) {
 	return v;
 }
 int main(int argc, char* argv[]) {
-	std::vector<Ball> balls = { Ball(x, y,2,2), Ball(x,y,2,2),Ball(x,y,2,2)};
+	std::vector<Ball> balls = { Ball(x, y,2,2), Ball(x,y,2,2),Ball(x,y,2,2),Ball(x,y,2,2), Ball(x,y,2,2), Ball(x,y,2,2),
+	Ball(x, y, 2, 2), Ball(x, y, 2, 2), Ball(x, y, 2, 2), Ball(x, y, 2, 2), Ball(x, y, 2, 2)};
 	auto arrayLength = std::distance(balls.begin(), balls.end());
 
-	//Ball(x,y,2,2), Ball(x,y,2,2), Ball(x,y,2,2),
-	//Ball(x, y, 2, 2), Ball(x, y, 2, 2), Ball(x, y, 2, 2), Ball(x, y, 2, 2), Ball(x, y, 2, 2)
+	
 
 	for (int i = 0; i < arrayLength; i++) {
 
@@ -31,6 +31,7 @@ int main(int argc, char* argv[]) {
 		balls[i].Y = randomise(WINDOW_HEIGHT);
 		balls[i].VelocityX = randomise(10);
 		balls[i].VelocityY = randomise(10);
+		balls[i].Collisions(balls, arrayLength);
 
 	}
 	//
