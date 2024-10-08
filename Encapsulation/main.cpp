@@ -31,7 +31,7 @@ int main(int argc, char* argv[]) {
 		balls[i].Y = randomise(WINDOW_HEIGHT);
 		balls[i].VelocityX = randomise(10);
 		balls[i].VelocityY = randomise(10);
-		balls[i].Collisions(balls, arrayLength);
+		balls[i].Collisions(balls);
 
 	}
 	//
@@ -48,7 +48,7 @@ int main(int argc, char* argv[]) {
 			balls[i].Display(renderer);
 			balls[i].Movements();
 			balls[i].BorderCollisions();
-			balls[i].Collisions(balls, arrayLength);
+			balls[i].Collisions(balls);
 		}
 
 		//moveBall();

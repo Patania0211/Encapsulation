@@ -14,7 +14,7 @@ public:
 	int VelocityX;
 	int VelocityY;
 
-	int Radius = 5;
+	int Radius = 10;
 
 	Ball(int x, int y, int vx, int vy)
 	{
@@ -27,7 +27,7 @@ public:
 	int Display(SDL_Renderer* renderer);
 	int Movements();
 	int BorderCollisions();
-	bool Collisions(std::vector<Ball> ballArray, int arrayLength);
+	bool Collisions(std::vector<Ball>& ballArray);
 	int DrawCircle(SDL_Renderer* renderer);
 
 };

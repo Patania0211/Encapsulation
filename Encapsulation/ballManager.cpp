@@ -71,14 +71,26 @@ int Ball::BorderCollisions() {
 	}
 	return 0;
 }
-bool Ball::Collisions(std::vector<Ball> ballArray, int arrayLength) {
-	for (int i = 0; i < arrayLength; i++) 
+bool Ball::Collisions(std::vector<Ball>& ballArray) {
+	for (int i = 0; i < ballArray.size(); i++) 
 	{
-		for (int k = i + 1; k < arrayLength; k++) 
+		for (int k = i + 1; k < ballArray.size(); k++)
 		{
 			if (ballArray[i].X == ballArray[k].X && ballArray[i].Y == ballArray[k].Y)
 			{
 				std::cout << "Collisons detected \n";
+				ballArray[i].VelocityX *= -1;
+				ballArray[i].X = ballArray[i].X + VelocityX;
+
+				ballArray[i].VelocityY *= -1;
+				ballArray[i].Y = ballArray[i].Y + VelocityY;
+
+				ballArray[k].VelocityX *= -1;
+				ballArray[k].X = ballArray[k].X + VelocityX;
+
+				ballArray[k].VelocityY *= -1;
+				ballArray[k].Y = ballArray[k].Y + VelocityY;
+
 				return true;
 			}
 
@@ -86,13 +98,4 @@ bool Ball::Collisions(std::vector<Ball> ballArray, int arrayLength) {
 
 	}
 
-	//for (int i = 0; i < arrayLength; i++) {
-	//	Ball previousBall = ballArray[i+1];
-
-	//	if (ballArray[i].X == previousBall.X) {
-
-	//		std::cout << "Colision detected";
-	//		return true;
-	//	}
-	//}
 }
