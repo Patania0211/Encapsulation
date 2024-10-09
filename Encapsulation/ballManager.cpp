@@ -77,7 +77,7 @@ int Ball::BorderCollisions()
 }
 bool Ball::Collisions(std::vector<Ball>& ballArray) 
 {
-	int distance;
+	double distance;
 	bool collision = false;
 	//Comparing two balls from the array
 	for (int i = 0; i < ballArray.size(); i++) 
@@ -85,25 +85,23 @@ bool Ball::Collisions(std::vector<Ball>& ballArray)
 		for (int k = i + 1; k < ballArray.size(); k++) 
 		{
 
-			distance = sqrt((ballArray[k].X - ballArray[i].X, 2)*(ballArray[k].X - ballArray[i].X, 2)
-				+ (ballArray[k].Y - ballArray[i].Y, 2)*(ballArray[k].Y - ballArray[i].Y, 2));
+			distance = sqrt(pow(ballArray[k].X - ballArray[i].X, 2) + pow(ballArray[k].Y - ballArray[i].Y, 2));
+			int radiusSum = ballArray[i].Radius + ballArray[k].Radius;
 
-			if (distance <= ballArray[i].Radius + ballArray[k].Radius) 
+			if (distance <= radiusSum) 
 			{
-				collision = true;
-				//std::cout << "Collision detected" << std::endl;
-			}
+				ballArray[i].VelocityX *= -1;
+				ballArray[i].VelocityY *= -1;
 
-			if (collision)
-			{
-				
-				//ballArray[i].X = ballArray[i].X + ballArray[i].VelocityX * -1;
-				//ballArray[i].Y = ballArray[i].X + ballArray[i].VelocityY * -1;
+				ballArray[k].VelocityX *= -1;
+				ballArray[k].VelocityY *= -1;
+
+				ballArray[i].X += ballArray[i].VelocityX;
+				ballArray[i].Y += ballArray[i].VelocityY;
 
 
-				//ballArray[k].X = ballArray[k].X + ballArray[k].VelocityX * -1;
-				//ballArray[k].Y = ballArray[k].X + ballArray[k].VelocityY * -1;
-
+				ballArray[k].X += ballArray[k].VelocityX;
+				ballArray[k].Y += ballArray[k].VelocityY;
 			}
 		}
 	}

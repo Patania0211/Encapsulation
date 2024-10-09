@@ -27,6 +27,7 @@ public:
 		VelocityY = vy;
 	};
 
+	int DrawCircle(SDL_Renderer* renderer);
 	int Display(SDL_Renderer* renderer);
 	int Movements();
 	int BorderCollisions();
@@ -34,7 +35,6 @@ public:
 	//bool Collisions(Ball ball1, Ball ball2);
 	void Update(std::vector<Ball>& ballArray, SDL_Renderer* renderer);
 	void Init();
-	int DrawCircle(SDL_Renderer* renderer);
 	
 
 private:
