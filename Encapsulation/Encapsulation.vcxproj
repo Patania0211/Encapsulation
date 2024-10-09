@@ -135,11 +135,13 @@
     <ClInclude Include="ballManager.h" />
     <ClInclude Include="constants.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="utilities.h" />
     <ClInclude Include="window.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ballManager.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="utilities.cpp" />
     <ClCompile Include="window.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
