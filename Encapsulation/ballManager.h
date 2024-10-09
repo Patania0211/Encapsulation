@@ -27,14 +27,18 @@ public:
 		VelocityY = vy;
 	};
 
+	void Init();
 	int DrawCircle(SDL_Renderer* renderer);
 	int Display(SDL_Renderer* renderer);
 	int Movements();
 	int BorderCollisions();
-	bool Collisions(std::vector<Ball>& ballArray);
+	void Collisions(std::vector<Ball>& ballArray);
 	//bool Collisions(Ball ball1, Ball ball2);
+
+	void CorrectOverlap(std::vector<Ball>& ballArray,
+		double distance, double radiusSum);
+
 	void Update(std::vector<Ball>& ballArray, SDL_Renderer* renderer);
-	void Init();
 	
 
 private:

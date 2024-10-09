@@ -31,6 +31,7 @@ int main(int argc, char* argv[]) {
 		SDL_RenderClear(renderer);
 
 		for (int i = 0; i < balls.size(); i++) {
+
 			balls[i].Update(balls, renderer);
 		}
 

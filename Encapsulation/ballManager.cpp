@@ -1,5 +1,16 @@
 #include "ballManager.h";
 
+void Ball:: Init()
+{
+	Utilities utility;
+
+	X = utility.randomise(WINDOW_WIDTH);
+	Y = utility.randomise(WINDOW_HEIGHT);
+	VelocityX = utility.randomise(10);
+	VelocityY = utility.randomise(10);
+
+	return;
+}
 int Ball::DrawCircle(SDL_Renderer* renderer) 
 {
 	int x = Radius;
@@ -75,19 +86,15 @@ int Ball::BorderCollisions()
 	}
 	return 0;
 }
-bool Ball::Collisions(std::vector<Ball>& ballArray) 
+void Ball::Collisions(std::vector<Ball>& ballArray) 
 {
-	double distance;
-	bool collision = false;
 	//Comparing two balls from the array
 	for (int i = 0; i < ballArray.size(); i++) 
 	{
 		for (int k = i + 1; k < ballArray.size(); k++) 
 		{
-
-			distance = sqrt(pow(ballArray[k].X - ballArray[i].X, 2) + pow(ballArray[k].Y - ballArray[i].Y, 2));
+			double distance = sqrt(pow(ballArray[k].X - ballArray[i].X, 2) + pow(ballArray[k].Y - ballArray[i].Y, 2));
 			int radiusSum = ballArray[i].Radius + ballArray[k].Radius;
-
 			if (distance <= radiusSum) 
 			{
 				ballArray[i].VelocityX *= -1;
@@ -102,15 +109,25 @@ bool Ball::Collisions(std::vector<Ball>& ballArray)
 
 				ballArray[k].X += ballArray[k].VelocityX;
 				ballArray[k].Y += ballArray[k].VelocityY;
+				CorrectOverlap(ballArray, distance, radiusSum);
 			}
 		}
 	}
 
-	return true;
-	
+	return;
 
 }
 
+void Ball::CorrectOverlap(std::vector<Ball>& ballArray, double distance, double radiusSum)
+{
+	for (int i = 0; i < ballArray.size(); i++)
+	{
+		for (int k = i + 1; k < ballArray.size(); k++)
+		{
+
+		}
+	}
+}
 void Ball::Update(std::vector<Ball>& ballArray, SDL_Renderer* renderer) {
 
 	Display(renderer);
@@ -120,14 +137,4 @@ void Ball::Update(std::vector<Ball>& ballArray, SDL_Renderer* renderer) {
 	return;
 }
 
-void Ball:: Init()
-{
-	Utilities utility;
 
-	X = utility.randomise(WINDOW_WIDTH);
-	Y = utility.randomise(WINDOW_HEIGHT);
-	VelocityX = utility.randomise(10);
-	VelocityY = utility.randomise(10);
-
-	return;
-}
