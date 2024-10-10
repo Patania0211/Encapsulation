@@ -74,15 +74,29 @@ int Ball::InvertMovements()
 }
 int Ball::BorderCollisions()
 {
-	//Symétrie des vecteurs vitesses
+	if (X >= WINDOW_WIDTH) {
 
-	if (X >= WINDOW_WIDTH || X <= 0) {
+		X = WINDOW_WIDTH;
+		VelocityX *= -1;
+
+	}
+	else if (X <= 0) 
+	{
+		X = 0;
 		VelocityX *= -1;
 	}
 
-	if (Y >= WINDOW_HEIGHT || Y <= 0  ) {
+	if (Y >= WINDOW_HEIGHT) {
+
+		Y = WINDOW_HEIGHT;
 		VelocityY *= -1;
 	}
+	else if (Y <= 0) 
+	{
+		Y = 0;
+		VelocityY *= -1;
+	}
+
 	UpdateMovements();
 
 	return 0;
@@ -135,8 +149,8 @@ void Ball::Update(std::vector<Ball>& ballArray, SDL_Renderer* renderer) {
 
 	Display(renderer);
 	BorderCollisions();
-	UpdateMovements();
 	Collisions(ballArray);
+	//UpdateMovements();
 	return;
 }
 
