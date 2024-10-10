@@ -17,7 +17,7 @@ public:
 	int VelocityX;
 	int VelocityY;
 
-	int Radius = 10;
+	int Radius = 20;
 
 	Ball(int x, int y, int vx, int vy)
 	{
@@ -30,13 +30,12 @@ public:
 	void Init();
 	int DrawCircle(SDL_Renderer* renderer);
 	int Display(SDL_Renderer* renderer);
-	int Movements();
+	int UpdateMovements();
+	int InvertMovements();
 	int BorderCollisions();
 	void Collisions(std::vector<Ball>& ballArray);
-	//bool Collisions(Ball ball1, Ball ball2);
 
-	void CorrectOverlap(std::vector<Ball>& ballArray,
-		double distance, double radiusSum);
+	void CorrectOverlap(std::vector<Ball>& ballArray, double distance, double radiusSum, Ball& ball1, Ball& ball2);
 
 	void Update(std::vector<Ball>& ballArray, SDL_Renderer* renderer);
 	

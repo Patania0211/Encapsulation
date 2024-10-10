@@ -55,7 +55,7 @@ int Ball::Display(SDL_Renderer* renderer)
 
 	return 0;
 }
-int Ball::Movements() 
+int Ball::UpdateMovements() 
 {
 
 	X += VelocityX;
@@ -63,76 +63,79 @@ int Ball::Movements()
 
 	return 0;
 }
-int Ball::BorderCollisions() 
+int Ball::InvertMovements() 
 {
+	VelocityX *= -1;
+	VelocityY *= -1;
 
-	if (X >= WINDOW_WIDTH) {
-		VelocityX *= -1;
-		Y =  Y + VelocityY;
-	}
-	if (X <= 0) {
-		VelocityX *= -1;
-		Y = Y + VelocityY;
-	}
+	UpdateMovements();
 
-	if (Y <= 0) {
-		VelocityY *= -1;
-		X = X + VelocityX;
-	}
-	if (Y >= WINDOW_HEIGHT) {
-		VelocityY *= -1;
-		X = X + VelocityX;
-
-	}
 	return 0;
 }
-void Ball::Collisions(std::vector<Ball>& ballArray) 
+int Ball::BorderCollisions()
 {
-	//Comparing two balls from the array
-	for (int i = 0; i < ballArray.size(); i++) 
-	{
-		for (int k = i + 1; k < ballArray.size(); k++) 
-		{
-			double distance = sqrt(pow(ballArray[k].X - ballArray[i].X, 2) + pow(ballArray[k].Y - ballArray[i].Y, 2));
-			int radiusSum = ballArray[i].Radius + ballArray[k].Radius;
-			if (distance <= radiusSum) 
-			{
-				ballArray[i].VelocityX *= -1;
-				ballArray[i].VelocityY *= -1;
+	//Symétrie des vecteurs vitesses
 
-				ballArray[k].VelocityX *= -1;
-				ballArray[k].VelocityY *= -1;
-
-				ballArray[i].X += ballArray[i].VelocityX;
-				ballArray[i].Y += ballArray[i].VelocityY;
-
-
-				ballArray[k].X += ballArray[k].VelocityX;
-				ballArray[k].Y += ballArray[k].VelocityY;
-				CorrectOverlap(ballArray, distance, radiusSum);
-			}
-		}
+	if (X >= WINDOW_WIDTH || X <= 0) {
+		VelocityX *= -1;
 	}
 
-	return;
+	if (Y >= WINDOW_HEIGHT || Y <= 0  ) {
+		VelocityY *= -1;
+	}
+	UpdateMovements();
 
+	return 0;
 }
-
-void Ball::CorrectOverlap(std::vector<Ball>& ballArray, double distance, double radiusSum)
+void Ball::Collisions(std::vector<Ball>& ballArray)
 {
+	//Comparing two balls from the array
 	for (int i = 0; i < ballArray.size(); i++)
 	{
 		for (int k = i + 1; k < ballArray.size(); k++)
 		{
+			double distance = sqrt(pow(ballArray[k].X - ballArray[i].X, 2) + pow(ballArray[k].Y - ballArray[i].Y, 2));
+			int radiusSum = ballArray[i].Radius + ballArray[k].Radius;
 
+			if (distance <= radiusSum)
+			{
+				ballArray[i].InvertMovements();
+				ballArray[k].InvertMovements();
+
+			}
+			if (distance < radiusSum)
+			{
+				CorrectOverlap(ballArray, distance, radiusSum, ballArray[i], ballArray[k]);
+			}
 		}
+
+
 	}
+		return;
+}
+//WORK IN PROGRESS
+void Ball::CorrectOverlap(std::vector<Ball>& ballArray, double distance, double radiusSum, Ball& ball1, Ball& ball2)
+{
+	double overlap = radiusSum - distance;
+
+	double dx = ball2.X - ball1.X;
+	double dy = ball2.Y - ball1.Y;
+
+	double distanceFactor = distance == 0 ? 1 : (1.0 / distance);
+	dx *= distanceFactor;
+	dy *= distanceFactor;
+
+	ball1.X -= dx * (overlap / 2);
+	ball1.Y -= dy * (overlap / 2);
+
+	ball2.X += dx * (overlap / 2);
+	ball2.Y += dy * (overlap / 2);
 }
 void Ball::Update(std::vector<Ball>& ballArray, SDL_Renderer* renderer) {
 
 	Display(renderer);
-	Movements();
 	BorderCollisions();
+	UpdateMovements();
 	Collisions(ballArray);
 	return;
 }
