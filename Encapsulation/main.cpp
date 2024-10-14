@@ -1,14 +1,14 @@
 #include "main.h"
 #include "ballManager.h"
 
+using namespace std;
+
 SDL_Window* window = NULL;
 SDL_Renderer* renderer = NULL;
 
 
 Ball ball1 (10,10,2,2);
 
-using namespace std;
-const int temporaryVariable = 11;
 
 int quit = 0;
 int x;

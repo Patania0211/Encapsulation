@@ -11,42 +11,64 @@ void Ball:: Init()
 
 	return;
 }
-int Ball::DrawCircle(SDL_Renderer* renderer) 
+int Ball::DrawCircle(SDL_Renderer* renderer)
 {
-	int x = Radius;
-	int y = 0;
 
-	int centerX = X;
-	int centerY = Y;
+	//I'm sorry <3 
+	// 
+	// That was the v1 of my circles
+	// 
+	// 
+	//int x = Radius;
+	//int y = 0;
 
-	int decisionOver2 = 1 - x; // Midpoint circle algorithm decision variable
+	//int centerX = X;
+	//int centerY = Y;
 
-	while (y <= x) 
+	//int decisionOver2 = 1 - x; // Midpoint circle algorithm decision variable
+
+	//while (y <= x) 
+	//{
+	//	// Draw the eight symmetrical points
+	//	SDL_RenderDrawPoint(renderer, centerX + x, centerY + y);
+	//	SDL_RenderDrawPoint(renderer, centerX + y, centerY + x);
+	//	SDL_RenderDrawPoint(renderer, centerX - x, centerY + y);
+	//	SDL_RenderDrawPoint(renderer, centerX - y, centerY + x);
+	//	SDL_RenderDrawPoint(renderer, centerX + x, centerY - y);
+	//	SDL_RenderDrawPoint(renderer, centerX + y, centerY - x);
+	//	SDL_RenderDrawPoint(renderer, centerX - x, centerY - y);
+	//	SDL_RenderDrawPoint(renderer, centerX - y, centerY - x);
+
+	//	y++;
+
+	//	// Update decision variable
+	//	if (decisionOver2 <= 0) {
+	//		decisionOver2 += 2 * y + 1; // Midpoint is inside the circle
+	//	}
+	//	else {
+	//		x--;
+	//		decisionOver2 += 2 * y - 2 * x + 1; // Midpoint is outside the circle
+	//	}
+	//}
+
+	for (int w = 0; w < Radius * 2; w++)
 	{
-		// Draw the eight symmetrical points
-		SDL_RenderDrawPoint(renderer, centerX + x, centerY + y);
-		SDL_RenderDrawPoint(renderer, centerX + y, centerY + x);
-		SDL_RenderDrawPoint(renderer, centerX - x, centerY + y);
-		SDL_RenderDrawPoint(renderer, centerX - y, centerY + x);
-		SDL_RenderDrawPoint(renderer, centerX + x, centerY - y);
-		SDL_RenderDrawPoint(renderer, centerX + y, centerY - x);
-		SDL_RenderDrawPoint(renderer, centerX - x, centerY - y);
-		SDL_RenderDrawPoint(renderer, centerX - y, centerY - x);
+		for (int h = 0; h < Radius * 2; h++)
+		{
 
-		y++;
+			int dx = Radius - w; // horizontal offset
+			int dy = Radius - h; // vertical offset
 
-		// Update decision variable
-		if (decisionOver2 <= 0) {
-			decisionOver2 += 2 * y + 1; // Midpoint is inside the circle
-		}
-		else {
-			x--;
-			decisionOver2 += 2 * y - 2 * x + 1; // Midpoint is outside the circle
+			if ((dx * dx + dy * dy) <= (Radius * Radius))
+			{
+				SDL_RenderDrawPoint(renderer, X + dx, Y + dy);
+			}
 		}
 	}
-
 	return 0;
 }
+
+
 int Ball::Display(SDL_Renderer* renderer) 
 {
 
@@ -145,7 +167,9 @@ void Ball::CorrectOverlap(std::vector<Ball>& ballArray, double distance, double 
 	ball2.X += dx * (overlap / 2);
 	ball2.Y += dy * (overlap / 2);
 }
-void Ball::Update(std::vector<Ball>& ballArray, SDL_Renderer* renderer) {
+
+void Ball::Update(std::vector<Ball>& ballArray, SDL_Renderer* renderer) 
+{
 
 	Display(renderer);
 	BorderCollisions();

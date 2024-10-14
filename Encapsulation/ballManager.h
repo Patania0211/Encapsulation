@@ -39,7 +39,6 @@ public:
 	void CorrectOverlap(std::vector<Ball>& ballArray, double distance, double radiusSum, Ball& ball1, Ball& ball2);
 
 	void Update(std::vector<Ball>& ballArray, SDL_Renderer* renderer);
-	
 
 private:
 
