@@ -1,6 +1,6 @@
 #include "ballManager.h";
 
-void Ball:: Init()
+void Ball:: RandomValuesInit()
 {
 	Utilities utility;
 
@@ -13,8 +13,12 @@ void Ball:: Init()
 	G = utility.randomise(255);
 	B = utility.randomise(255);
 
+	Radius = utility.randomise(25);
+
 	return;
 }
+
+
 int Ball::DrawCircle(SDL_Renderer* renderer)
 {
 	//I'm sorry <3 
@@ -176,11 +180,12 @@ void Ball::Spawn()
 	return;
 
 }
-void Ball::Remove() 
+void Ball::SetVisibility()
 {
 	isVisible = false;
 	return;
 }
+
 void Ball::Update(std::vector<Ball>& ballArray, SDL_Renderer* renderer) 
 {
 	Display(renderer);

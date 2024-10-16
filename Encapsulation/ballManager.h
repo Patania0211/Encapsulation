@@ -22,20 +22,13 @@ public:
 		VelocityY = vy;
 	};
 
-	void Init();
-	int DrawCircle(SDL_Renderer* renderer);
-	int Display(SDL_Renderer* renderer);
-	int UpdateMovements();
-	int InvertMovements();
-	int BorderCollisions();
-	void Collisions(std::vector<Ball>& ballArray);
-
-	void CorrectOverlap(std::vector<Ball>& ballArray, double distance, double radiusSum, Ball& ball1, Ball& ball2);
-
+	void RandomValuesInit();
 	void Spawn();
-	void Remove();
+	void SetVisibility();
 	void Update(std::vector<Ball>& ballArray, SDL_Renderer* renderer);
+
 	~Ball() {};
+
 private:
 
 	int X;
@@ -46,4 +39,17 @@ private:
 
 	int Radius = 20;
 	bool isVisible = true;
+
+	int InvertMovements();
+	void Collisions(std::vector<Ball>& ballArray);
+	void CorrectOverlap(std::vector<Ball>& ballArray, double distance, double radiusSum, Ball& ball1, Ball& ball2);
+	int Display(SDL_Renderer* renderer);
+	int UpdateMovements();
+	int DrawCircle(SDL_Renderer* renderer);
+	int BorderCollisions();
+
+
+
+
+
 };

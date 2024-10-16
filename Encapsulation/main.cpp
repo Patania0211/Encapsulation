@@ -8,15 +8,15 @@ SDL_Renderer* renderer = NULL;
 
 
 Ball ball (0,0,1,1);
-
-
 int quit = 0;
-int x;
-int y;
 
-int main(int argc, char* argv[]) {
-	Uint32 startTicks = SDL_GetTicks64();
-	std::vector<Ball> balls = {};
+Uint32 startTicks = SDL_GetTicks64();
+
+std::vector<Ball> balls = {};
+
+int main(int argc, char* argv[]) 
+{
+
 	if (createWindow(&window, &renderer)!= 0) {
 		return -1;
 	}
@@ -30,24 +30,21 @@ int main(int argc, char* argv[]) {
 
 		if (timeElapsed >= 1000)
 		{
-			ball.Init();
+			ball.RandomValuesInit();
 			ball.Spawn();
 			balls.emplace_back(ball);
 			startTicks = SDL_GetTicks64();
-			//std::cout << ballCount << endl;
-			std::cout << balls.size()<< endl;
 
 		}
 
-		if (balls.size() >= 30)
+		if (balls.size() >= 20)
 		{
-			balls[0].Remove();
+			balls[0].SetVisibility();
+			balls[1].SetVisibility();
 			balls.erase(balls.begin());
 			balls.shrink_to_fit();
 		}
 
-
-		
 		for (int i = 0; i < balls.size(); i++) {
 
 			balls[i].Update(balls, renderer);
