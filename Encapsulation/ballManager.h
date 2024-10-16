@@ -12,12 +12,7 @@
 class Ball
 {
 public:
-	int X;
-	int Y;
-	int VelocityX;
-	int VelocityY;
 
-	int Radius = 20;
 
 	Ball(int x, int y, int vx, int vy)
 	{
@@ -35,15 +30,20 @@ public:
 	int BorderCollisions();
 	void Collisions(std::vector<Ball>& ballArray);
 
-	int CorrectBorderClipping();
 	void CorrectOverlap(std::vector<Ball>& ballArray, double distance, double radiusSum, Ball& ball1, Ball& ball2);
 
+	void Spawn();
+	void Remove();
 	void Update(std::vector<Ball>& ballArray, SDL_Renderer* renderer);
-
+	~Ball() {};
 private:
 
-	int R;
-	int G;
-	int B;
+	int X;
+	int Y;
+	int VelocityX;
+	int VelocityY;
+	int R, G, B;
 
+	int Radius = 20;
+	bool isVisible = true;
 };

@@ -9,11 +9,14 @@ void Ball:: Init()
 	VelocityX = utility.randomise(10);
 	VelocityY = utility.randomise(10);
 
+	R = utility.randomise(255);
+	G = utility.randomise(255);
+	B = utility.randomise(255);
+
 	return;
 }
 int Ball::DrawCircle(SDL_Renderer* renderer)
 {
-
 	//I'm sorry <3 
 	// 
 	// That was the v1 of my circles
@@ -67,12 +70,11 @@ int Ball::DrawCircle(SDL_Renderer* renderer)
 	}
 	return 0;
 }
-
-
 int Ball::Display(SDL_Renderer* renderer) 
 {
+	if (!isVisible) { return 0; }
 
-	SDL_SetRenderDrawColor(renderer, 255, 178, 78, 255);
+	SDL_SetRenderDrawColor(renderer, R, G, B, 255);
 	DrawCircle(renderer);
 
 	return 0;
@@ -167,10 +169,20 @@ void Ball::CorrectOverlap(std::vector<Ball>& ballArray, double distance, double 
 	ball2.X += dx * (overlap / 2);
 	ball2.Y += dy * (overlap / 2);
 }
+void Ball::Spawn()
+{
+	Ball{ X,Y,VelocityX, VelocityY };
 
+	return;
+
+}
+void Ball::Remove() 
+{
+	isVisible = false;
+	return;
+}
 void Ball::Update(std::vector<Ball>& ballArray, SDL_Renderer* renderer) 
 {
-
 	Display(renderer);
 	BorderCollisions();
 	Collisions(ballArray);
