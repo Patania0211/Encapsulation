@@ -1,6 +1,6 @@
 #include "utilities.h"
 
-int Utilities:: randomise(int value) {
-	int v = rand() % value;
+int Utilities:: Randomise(int minValue, int maxValue) {
+	int v = rand() % maxValue - minValue;
 	return v;
 }

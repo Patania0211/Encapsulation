@@ -1,9 +1,11 @@
 #pragma once
 #include <stdlib.h>
 
+
+
 class Utilities
 {
 public:
-	int randomise(int value);
+	int Randomise(int minValue, int maxValue);
 };
 

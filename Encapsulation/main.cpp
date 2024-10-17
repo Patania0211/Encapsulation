@@ -1,42 +1,44 @@
 #include "main.h"
 #include "ballManager.h"
 
+using namespace std;
+
 SDL_Window* window = NULL;
 SDL_Renderer* renderer = NULL;
 
 
-Ball ball1 (10,10,2,2);
-
-using namespace std;
-const int temporaryVariable = 11;
-
+Ball ball(0, 0, 1, 1);
 int quit = 0;
-int x;
-int y;
 
-int main(int argc, char* argv[]) {
-	std::vector<Ball> balls = { Ball(x, y,2,2), Ball(x,y,2,2),Ball(x,y,2,2),Ball(x,y,2,2), Ball(x,y,2,2), Ball(x,y,2,2),
-	Ball(x, y, 2, 2), Ball(x, y, 2, 2), Ball(x, y, 2, 2), Ball(x, y, 2, 2), Ball(x, y, 2, 2)};
+Uint32 startTicks = SDL_GetTicks64();
 
-	for (int i = 0; i < balls.size(); i++) {
-		balls[i].Init();
-	}
-	if (createWindow(&window, &renderer)!= 0) {
-		return -1;
-	}
-	while (!quit) {
+std::vector<Ball> ballArray = {};
 
+int main(int argc, char* argv[])
+{
+	if (createWindow(&window, &renderer) !=0) {return -1;}
+	while (!quit) 
+	{
+
+		std::srand(std::time(0));
 		quit = closeWindow(window);
+
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 		SDL_RenderClear(renderer);
 
-		for (int i = 0; i < balls.size(); i++) {
+		Uint32 timeElapsed = SDL_GetTicks64() - startTicks;
 
-			balls[i].Update(balls, renderer);
+		if (timeElapsed >= 1000)
+		{
+			ball.Init(ballArray, ball);
+			startTicks = SDL_GetTicks64();
+
 		}
+		if (ballArray.size() >= MAX_BALL_AMOUNT){ball.Delete(ballArray);}
+		for (int i = 0; i < ballArray.size(); i++) {ballArray[i].Update(ballArray, renderer);}
 
 		SDL_RenderPresent(renderer);
-		SDL_Delay(10);
+		//SDL_Delay(10);
 	}
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
