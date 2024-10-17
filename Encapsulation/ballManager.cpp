@@ -2,34 +2,9 @@
 
 void Ball::Init(std::vector<Ball>& ballArray, Ball ball) {
 	//Ball initialisation
-	RandomValuesInit();
-	Spawn();
+	randomValuesInit();
+	spawn();
 	ballArray.emplace_back(ball);
-}
-void Ball::RandomValuesInit()
-{
-	Utilities utility;
-
-	X = utility.Randomise(0,WINDOW_WIDTH);
-	Y = utility.Randomise(0, WINDOW_HEIGHT);
-	VelocityX = utility.Randomise(1,5);
-	VelocityY = utility.Randomise(1,5);
-
-	R = utility.Randomise(1, 255);
-	G = utility.Randomise(1, 255);
-	B = utility.Randomise(1, 255);
-
-	Radius = utility.Randomise(10, 25);
-
-	return;
-}
-
-void Ball::Spawn()
-{
-	Ball{ X,Y,VelocityX,VelocityY };
-
-	return;
-
 }
 
 void Ball::SetVisibility()
@@ -48,7 +23,7 @@ void Ball::Update(std::vector<Ball>& ballArray, SDL_Renderer* renderer)
 
 void Ball::Delete(std::vector<Ball>& ballArray) 
 {
-	//Removing the ball from the array and unallocate t
+	//Removing the ball from the array and free the memory
 	ballArray[0].SetVisibility();
 	ballArray.erase(ballArray.begin());
 	ballArray.shrink_to_fit();
@@ -57,6 +32,31 @@ void Ball::Delete(std::vector<Ball>& ballArray)
 
 
 
+void Ball::randomValuesInit()
+{
+	Utilities utility;
+
+	X = utility.Randomise(0,WINDOW_WIDTH);
+	Y = utility.Randomise(0, WINDOW_HEIGHT);
+	VelocityX = utility.Randomise(1,5);
+	VelocityY = utility.Randomise(1,5);
+
+	R = utility.Randomise(1, 255);
+	G = utility.Randomise(1, 255);
+	B = utility.Randomise(1, 255);
+
+	Radius = utility.Randomise(15, 25);
+
+	return;
+}
+
+void Ball::spawn()
+{
+	Ball ball { X,Y,VelocityX,VelocityY };
+
+	return;
+
+}
 int Ball::drawCircle(SDL_Renderer* renderer)
 {
 
@@ -107,8 +107,8 @@ void Ball::collisions(std::vector<Ball>& ballArray)
 		for (int k = i + 1; k < ballArray.size(); k++)
 		{
 			//Formula of the vector norm
-			double distance = sqrt((ballArray[k].X - ballArray[i].X, 2)* (ballArray[k].X - ballArray[i].X, 2) + 
-				(ballArray[k].Y - ballArray[i].Y, 2)*(ballArray[k].Y - ballArray[i].Y, 2));
+			double distance = sqrt(pow(ballArray[k].X - ballArray[i].X, 2) +
+				pow(ballArray[k].Y - ballArray[i].Y, 2));
 
 			int radiusSum = ballArray[i].Radius + ballArray[k].Radius;
 

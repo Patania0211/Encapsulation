@@ -23,13 +23,11 @@ public:
 	};
 	void Init(std::vector<Ball>& ballArray, Ball ball);
 
-	void RandomValuesInit();
-	void Spawn();
 	void SetVisibility();
 	void Update(std::vector<Ball>& ballArray, SDL_Renderer* renderer);
 	void Delete(std::vector<Ball>& ballArray);
 	~Ball() {
-		X, Y, VelocityX, VelocityY, R,G,B = 0;
+		X, Y, VelocityX, VelocityY = 0;
 	};
 
 private:
@@ -43,6 +41,9 @@ private:
 
 	bool isVisible = true;
 
+
+	void randomValuesInit();
+	void spawn();
 
 	int invertMovements();
 	void collisions(std::vector<Ball>& ballArray);
