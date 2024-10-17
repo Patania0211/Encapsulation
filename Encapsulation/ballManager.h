@@ -14,21 +14,16 @@ class Ball
 public:
 
 
-	Ball(int x, int y, int vx, int vy)
-	{
-		X = x;
-		Y = y;
-		VelocityX = vx;
-		VelocityY = vy;
-	};
+	Ball() {  };
 	void Init(std::vector<Ball>& ballArray, Ball ball);
 
 	void SetVisibility();
 	void Update(std::vector<Ball>& ballArray, SDL_Renderer* renderer);
 	void Delete(std::vector<Ball>& ballArray);
-	~Ball() {
-		X, Y, VelocityX, VelocityY = 0;
-	};
+
+	void Game(Uint32 timeElapsed, Uint32 startTicks, 
+		std::vector<Ball> ballArray, Ball ball, SDL_Renderer* renderer);
+	~Ball() {  };
 
 private:
 
@@ -43,15 +38,18 @@ private:
 
 
 	void randomValuesInit();
-	void spawn();
 
+	int drawCircle(SDL_Renderer* renderer);
+
+	int display(SDL_Renderer* renderer);
 	int invertMovements();
 	void collisions(std::vector<Ball>& ballArray);
-	void correctOverlap(std::vector<Ball>& ballArray, double distance, double radiusSum, Ball& ball1, Ball& ball2);
-	int display(SDL_Renderer* renderer);
-	int updateMovements();
-	int drawCircle(SDL_Renderer* renderer);
+
 	int borderCollisions();
+
+	void correctOverlap(std::vector<Ball>& ballArray, double distance, double radiusSum, Ball& ball1, Ball& ball2);
+
+	int updateMovements();
 
 
 

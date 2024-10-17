@@ -1,5 +1,5 @@
 #include "window.h"
-int createWindow(SDL_Window** window, SDL_Renderer** renderer) {
+int SDLInit(SDL_Window** window, SDL_Renderer** renderer) {
 
 	//Initialization
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
@@ -27,7 +27,7 @@ int createWindow(SDL_Window** window, SDL_Renderer** renderer) {
 	}
 	return 0;
 }
-int closeWindow(SDL_Window* window) {
+int SDLCleanUp(SDL_Window* window) {
 
 	SDL_Event event;
 

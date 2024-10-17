@@ -3,7 +3,6 @@
 void Ball::Init(std::vector<Ball>& ballArray, Ball ball) {
 	//Ball initialisation
 	randomValuesInit();
-	spawn();
 	ballArray.emplace_back(ball);
 }
 
@@ -28,8 +27,26 @@ void Ball::Delete(std::vector<Ball>& ballArray)
 	ballArray.erase(ballArray.begin());
 	ballArray.shrink_to_fit();
 }
+//Je sais c'est criminel
 
+void Ball::Game(Uint32 timeElapsed, Uint32 startTicks, std::vector<Ball> ballArray, Ball ball, SDL_Renderer* renderer)
+{
+	if (timeElapsed >= 1000)
+	{
+		ball.Init(ballArray, ball);
+		startTicks = SDL_GetTicks64();
 
+	}
+	if (ballArray.size() >= MAX_BALL_AMOUNT)
+	{
+		ball.Delete(ballArray);
+	}
+
+	for (int i = 0; i < ballArray.size(); i++)
+	{
+		ballArray[i].Update(ballArray, renderer);
+	}
+}
 
 
 void Ball::randomValuesInit()
@@ -38,6 +55,7 @@ void Ball::randomValuesInit()
 
 	X = utility.Randomise(0,WINDOW_WIDTH);
 	Y = utility.Randomise(0, WINDOW_HEIGHT);
+
 	VelocityX = utility.Randomise(1,5);
 	VelocityY = utility.Randomise(1,5);
 
@@ -45,18 +63,11 @@ void Ball::randomValuesInit()
 	G = utility.Randomise(1, 255);
 	B = utility.Randomise(1, 255);
 
-	Radius = utility.Randomise(15, 25);
+	Radius = utility.Randomise(5, 25);
 
 	return;
 }
 
-void Ball::spawn()
-{
-	Ball ball { X,Y,VelocityX,VelocityY };
-
-	return;
-
-}
 int Ball::drawCircle(SDL_Renderer* renderer)
 {
 

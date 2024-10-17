@@ -5,6 +5,6 @@
 
 #include "constants.h"
 
-int createWindow(SDL_Window** window, SDL_Renderer** renderer);
-int closeWindow(SDL_Window* window);
+int SDLInit(SDL_Window** window, SDL_Renderer** renderer);
+int SDLCleanUp(SDL_Window* window);
 
