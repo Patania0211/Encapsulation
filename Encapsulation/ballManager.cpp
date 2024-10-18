@@ -142,26 +142,26 @@ void Ball::collisions(std::vector<Ball>& ballArray)
 
 int Ball::borderCollisions()
 {
-	if (X >= WINDOW_WIDTH) {
+	if (X + Radius / 2 >= WINDOW_WIDTH ) {
 
-		X = WINDOW_WIDTH;
+		X = WINDOW_WIDTH - Radius / 2;
 		VelocityX *= -1;
 
 	}
-	else if (X <= 0)
+	else if (X - Radius / 2 <= 0)
 	{
-		X = 0;
+		X = Radius / 2;
 		VelocityX *= -1;
 	}
 
-	if (Y >= WINDOW_HEIGHT) {
+	if (Y  + Radius / 2 >= WINDOW_HEIGHT) {
 
-		Y = WINDOW_HEIGHT;
+		Y = WINDOW_HEIGHT - Radius / 2;
 		VelocityY *= -1;
 	}
-	else if (Y <= 0)
+	else if (Y - Radius / 2<= 0 )
 	{
-		Y = 0;
+		Y = Radius / 2;
 		VelocityY *= -1;
 	}
 
